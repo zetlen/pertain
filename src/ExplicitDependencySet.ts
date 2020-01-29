@@ -1,23 +1,24 @@
-import Resolver from './Resolver';
+import { Resolver } from './resolver';
 import ExplicitDependency from './ExplicitDependency';
 import topologicalSort from './topologicalSort';
 
 export default class ExplicitDependencySet {
-  private resolver: Resolver;
+  private resolve: Resolver;
   private dependencies: ExplicitDependency[];
   private sortedBySubject: Map<string, ExplicitDependency[]>;
-  constructor(resolver: Resolver, names: string[]) {
-    this.resolver = resolver;
+  constructor(resolve: Resolver, names: string[]) {
+    this.resolve = resolve;
     this.dependencies = [];
     this.sortedBySubject = new Map();
     names.forEach(name => this.add(name));
   }
+
   private add(name: string) {
-    const dependency = new ExplicitDependency({
-      name,
-      modulePath: this.resolver.rootDir(name)
-    });
-    this.dependencies.push(dependency);
+    const modulePath = this.resolve(name);
+    if (modulePath) {
+      const dependency = new ExplicitDependency(modulePath);
+      this.dependencies.push(dependency);
+    }
   }
 
   pertaining(subject: string) {
