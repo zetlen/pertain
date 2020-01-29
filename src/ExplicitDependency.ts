@@ -19,15 +19,16 @@ export default class ExplicitDependency {
    * Real path on disk of this module.
    */
   private modulePath: string;
+
   /**
-   * Cache storage to prevent unnecessary recalculation of the same list.
-   * The same subject should result in the same list while this object exists.
+   * Name of this package; for use in dependency detection.
    */
-  private pertainCache: Map<string, string | boolean>;
+  get name() {
+    return this.pkg.name;
+  }
 
   constructor(modulePath: string) {
     this.modulePath = modulePath;
-    this.pertainCache = new Map();
     this.pkg = new PackageJson(modulePath);
   }
 
@@ -61,11 +62,9 @@ export default class ExplicitDependency {
    * `package.json`must have a top level `pwa` object with a `build` property.
    */
   pertains(subject: string) {
-    const { pertainCache } = this;
-    if (pertainCache.has(subject)) {
-      return pertainCache.get(subject);
-    }
     const pertaining = PackageJson.lookup(this.pkg, subject);
+
+    // Only strings can be file paths, so anything else does not pertain
     if (!pertaining || typeof pertaining !== 'string') {
       debug(
         '%s: Subject %s resolved to %s',
@@ -73,20 +72,21 @@ export default class ExplicitDependency {
         subject,
         pertaining
       );
-      pertainCache.set(subject, false);
       return false;
     }
+
     debug(
       'found declaration of "%s" as "%s" in "%s"',
       subject,
       pertaining,
       this.pkg.name
     );
+
+    // This is the indicated path which would pertain; is it requireable?
     const subscriber = path.resolve(this.modulePath, pertaining);
     try {
       const pertainingModule = require.resolve(subscriber);
       debug('found runnable module at %s', pertainingModule);
-      pertainCache.set(subject, pertainingModule);
       return pertainingModule;
     } catch (e) {
       throw new PertainError(

@@ -5,6 +5,15 @@ export interface JsonMap<T> {
   [key: string]: T;
 }
 
+/**
+ * Lazy-loading proxy for package.json. A subset of properties are available,
+ * and a static method
+ * `PackageJson.lookup(package: PackageJson, dotPath: string)`
+ * exists for looking up other arbitrary properties.
+ *
+ * This speeds up dependency gathering; it won't be necessary to read all
+ * package files from disk.
+ */
 export default class PackageJson {
   /**
    * Look up a custom dot-path on a package.json instance. Abstracting this

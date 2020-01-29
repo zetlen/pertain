@@ -1,5 +1,14 @@
 import PertainError from './PertainError';
 
+/**
+ * Topologically sort a list of items of any type, given a list of items and
+ * a map of outward relations between those items.
+ *
+ * Credit to https://github.com/marcelklehr/toposort/ for a great
+ * implementation I had to adapt to be faster for our particular use case.
+ *
+ * That code appears here courtesy of the MIT license.
+ */
 export default function topologicalSort<T>(
   nodes: T[],
   outgoingFrom: (node: T) => T[]
