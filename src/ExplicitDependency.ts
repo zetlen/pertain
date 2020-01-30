@@ -1,7 +1,7 @@
 import makeDebug from 'debug';
 import path from 'path';
-import PertainError from './PertainError';
 import PackageJson from './PackageJson';
+import PertainError from './PertainError';
 
 const debug = makeDebug('pertain:ExplicitDependency');
 
@@ -23,7 +23,7 @@ export default class ExplicitDependency {
   /**
    * Name of this package; for use in dependency detection.
    */
-  get name() {
+  public get name() {
     return this.pkg.name;
   }
 
@@ -46,7 +46,7 @@ export default class ExplicitDependency {
    * should require extensions to use `peerDependencies` when using other
    * extensions. Otherwise they're not guaranteed to run in the right order.
    */
-  dependsOn(name: string) {
+  public dependsOn(name: string) {
     return this.pkg.peerDependencies.hasOwnProperty(name);
   }
 
@@ -61,7 +61,7 @@ export default class ExplicitDependency {
    * Dot notation lookup works: if the subject is `pwa.build`, then
    * `package.json`must have a top level `pwa` object with a `build` property.
    */
-  pertains(subject: string) {
+  public pertains(subject: string) {
     const pertaining = PackageJson.lookup(this.pkg, subject);
 
     // Only strings can be file paths, so anything else does not pertain
@@ -83,7 +83,7 @@ export default class ExplicitDependency {
     );
 
     // This is the indicated path which would pertain; is it requireable?
-    const subscriber = path.resolve(this.modulePath, pertaining);
+    const subscriber = path.join(this.modulePath, pertaining);
     try {
       const pertainingModule = require.resolve(subscriber);
       debug('found runnable module at %s', pertainingModule);
@@ -95,7 +95,8 @@ export default class ExplicitDependency {
     }
   }
 
-  toString() {
+  /* istanbul ignore next */
+  public toString() {
     return `${this.pkg.name} @ ${this.modulePath}`;
   }
 }

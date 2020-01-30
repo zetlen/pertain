@@ -1,14 +1,11 @@
-src
-test
+src/__tests__
 tsconfig.json
 tsconfig.module.json
 tslint.json
-.travis.yml
+.circle
 .github
 .prettierignore
 .vscode
-build/docs
-**/*.spec.*
 coverage
 .nyc_output
 *.log

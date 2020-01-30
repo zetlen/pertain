@@ -1,8 +1,7 @@
 import makeDebug from 'debug';
-import path from 'path';
 import ExplicitDependencySet from './ExplicitDependencySet';
-import resolver from './resolver';
 import PackageJson from './PackageJson';
+import resolver from './resolver';
 
 const debug = makeDebug('pertain:main');
 
@@ -43,25 +42,25 @@ const dependencySetCache = new Map<string, ExplicitDependencySet>();
  * peerDependency order.
  */
 function pertain(rootDir: string, subject: string): Pertaining[] {
-  const absRoot = path.resolve(rootDir);
-  let depSet = dependencySetCache.get(absRoot);
+  let depSet = dependencySetCache.get(rootDir);
   if (!depSet) {
-    debug('no cached depset for %s', absRoot);
+    debug('no cached depset for %s', rootDir);
     // A convenience function which can be replaced with an alternate resolver
     // algorithm.
-    const resolve = resolver(absRoot);
-    const { dependencies, devDependencies } = new PackageJson(absRoot);
+    const resolve = resolver(rootDir);
+    const { dependencies, devDependencies } = new PackageJson(rootDir);
 
     // Merging the two dependency sets that we look at will dedupe them.
     // We don't care whether it comes from devDependencies or dependencies.
     // Both are relevant, because many applications with a build step compile
     // code from devDependencies.
-    const allDependencyNames = Object.keys(
-      Object.assign({}, dependencies, devDependencies)
-    );
-    debug('%s allDependencyNames %s', absRoot, allDependencyNames);
+    const allDependencyNames = Object.keys({
+      ...dependencies,
+      ...devDependencies
+    });
+    debug('%s allDependencyNames %s', rootDir, allDependencyNames);
     depSet = new ExplicitDependencySet(resolve, allDependencyNames);
-    dependencySetCache.set(absRoot, depSet);
+    dependencySetCache.set(rootDir, depSet);
   }
   return depSet.pertaining(subject).map(dep => ({
     name: dep.name,

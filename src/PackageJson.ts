@@ -1,5 +1,5 @@
-import path from 'path';
 import dotProp from 'dot-prop';
+import path from 'path';
 
 export interface JsonMap<T> {
   [key: string]: T;
@@ -19,33 +19,33 @@ export default class PackageJson {
    * Look up a custom dot-path on a package.json instance. Abstracting this
    * simple operation behind a static method helps us to keep this loading lazy.
    */
-  static lookup(pkg: PackageJson, dotPath: string) {
-    return dotProp.get(pkg.json, dotPath);
+  public static lookup(pkg: PackageJson, dotPath: string) {
+    return dotProp.get(pkg.getJson(), dotPath);
   }
-  private get json(): JsonMap<any> {
-    if (!this._json) {
-      this._json = require(path.resolve(
+  public get dependencies(): JsonMap<string> {
+    return this.getJson().dependencies || {};
+  }
+  public get devDependencies(): JsonMap<string> {
+    return this.getJson().devDependencies || {};
+  }
+  public get name(): string {
+    return this.getJson().name as string;
+  }
+  public get peerDependencies(): JsonMap<string> {
+    return this.getJson().peerDependencies || {};
+  }
+  private json: JsonMap<any> | undefined;
+  private modulePath: string;
+  constructor(modulePath: string) {
+    this.modulePath = modulePath;
+  }
+  private getJson(): JsonMap<any> {
+    if (!this.json) {
+      this.json = require(path.join(
         this.modulePath,
         'package.json'
       )) as JsonMap<any>;
     }
-    return this._json;
-  }
-  get dependencies(): JsonMap<string> {
-    return this.json.dependencies || {};
-  }
-  get devDependencies(): JsonMap<string> {
-    return this.json.devDependencies || {};
-  }
-  get name(): string {
-    return this.json.name as string;
-  }
-  get peerDependencies(): JsonMap<string> {
-    return this.json.peerDependencies || {};
-  }
-  private _json: JsonMap<any> | undefined;
-  private modulePath: string;
-  constructor(modulePath: string) {
-    this.modulePath = modulePath;
+    return this.json;
   }
 }

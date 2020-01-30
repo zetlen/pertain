@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pertains to "germane.draw" in dep order to draw the cool cactus 1`] = `
+"
+@============================================@
+|                                            |
+|                   / '-' }                  |
+|                  ;       ;                 |
+|               /'-|       |-'}              |
+|              |   |_______K   |             |
+|              }   '-------'   /             |
+|               '.___.....___.'              |
+|                  |     ; |                 |
+|                 _|;__;__.|_                |
+|                |     Y     |    .--.       |
+|       .--.      X__.'^'.__/                |
+|                  |    ;  |      .--.       |
+|       .--.       | ;  .  |     /;   }      |
+|      /   ;}      |_  ;  _|     |  ' |      |
+|      | ;  |      {  ;  * |     |;   |      |
+|      |'   |      {    .  }     | ;  |      |
+|      |  ; |      {  *    }     |    |      |
+|      |;   |      ;'-.__.'|     |:  ;|      |
+|      | ;  }      |;  ;   |_____/ ;  |      |
+|      |   '.'-----'      ' -_   .'   /      |
+|      }  '.   - _  ' ;  ;  _  -    .'       |
+|       '.   -     - ;  ;   .------'         |
+|         '--------.      ;|                 |
+|                  |;  ,   |                 |
+|                  |     ; |                 |
+|                  |. ;    |                 |
+|                  | :    :|                 |
+|                  |;   ;  |                 |
+|                  |     ; |                 |
+|                  |     ; |                 |
+|                  |. ;    |                 |
+|                  | :    :|                 |
+|                  |   .   |                 |
+|                  |;   ;  |                 |
+|                                            |
+|          ceci n'est pas un cactus          |
+|                                            |
+@============================================@"
+`;
+
+exports[`pertains to "germane.identify" in dep order to list ingredients in a cool cactus 1`] = `
+"- @garden/cactus adds a cactus in the garden
+- cactus-attitude adds a bad attitude
+- cactus-hat adds a hat
+- cactus-glasses adds a pair of sunglasses"
+`;

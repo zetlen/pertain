@@ -1,6 +1,6 @@
-import { Resolver } from './resolver';
 import ExplicitDependency from './ExplicitDependency';
-import topologicalSort from './topologicalSort';
+import { Resolver } from './resolver';
+import TopologicalSort from './TopologicalSort';
 
 /**
  * A set of modules that can be queried for pertaining to a given subject.
@@ -23,24 +23,12 @@ export default class ExplicitDependencySet {
   }
 
   /**
-   * Only add dependencies which can be resolved in the first place. If there
-   * is a problem finding them, just skip them; they don't pertain!
-   */
-  private add(name: string) {
-    const modulePath = this.resolve(name);
-    if (modulePath) {
-      const dependency = new ExplicitDependency(modulePath);
-      this.dependencies.push(dependency);
-    }
-  }
-
-  /**
    * Gets a list of ExplicitDependencies in this set which pertain to the
    * subject (that is, their `package.json` has a valid key for the subject
    * that indicates a requireable file). Detects dependencies between the
    * packages that pertain and sorts the list in dependency order.
    */
-  pertaining(subject: string) {
+  public pertaining(subject: string) {
     let sorted = this.sortedBySubject.get(subject);
     if (!sorted) {
       const pertaining: ExplicitDependency[] = this.dependencies.filter(
@@ -54,9 +42,22 @@ export default class ExplicitDependencySet {
           dependent =>
             dependent !== dependency && dependent.dependsOn(dependency.name)
         );
-      sorted = topologicalSort(pertaining, getOutgoingEdges);
+      const sorter = new TopologicalSort<ExplicitDependency>(getOutgoingEdges);
+      sorted = sorter.sort(pertaining);
       this.sortedBySubject.set(subject, sorted);
     }
     return sorted;
+  }
+
+  /**
+   * Only add dependencies which can be resolved in the first place. If there
+   * is a problem finding them, just skip them; they don't pertain!
+   */
+  private add(name: string) {
+    const modulePath = this.resolve(name);
+    if (modulePath) {
+      const dependency = new ExplicitDependency(modulePath);
+      this.dependencies.push(dependency);
+    }
   }
 }
