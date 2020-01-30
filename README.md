@@ -1,4 +1,8 @@
-Scans all explicitly declared package dependencies in the current project for code with a particular purpose, and run that code.
+# pertain
+
+## the easiest way to build a pluggable library
+
+Scan all explicitly declared package dependencies in the current project for code with a particular purpose, and run that code.
 
 ### Registering
 
@@ -52,7 +56,7 @@ const dessertTable = {};
 
 for (const dessertFile of desserts) {
   // Require and execute the module.
-  const Dessert = require(dessertFile);
+  const Dessert = require(dessertFile.path);
   // Expect that a dessert will be a class. Provide it with the table
   // everything else has set, so it can interact with other dependencies.
   const dessert = new Dessert(dessertTable);
