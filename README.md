@@ -1,5 +1,10 @@
 # pertain
 
+[![npm version](https://img.shields.io/npm/v/pertain)](https://npmjs.com/package/pertain)
+[![codecov](https://codecov.io/gh/zetlen/pertain/branch/master/graph/badge.svg)](https://codecov.io/gh/zetlen/pertain)
+![snyk](https://img.shields.io/snyk/vulnerabilities/npm/pertain)
+[![npm downloads](https://img.shields.io/npm/dt/pertain?logo=npm)](https://npmjs.com/package/pertain)
+
 ## the easiest way to build a pluggable library
 
 Scan all explicitly declared package dependencies in the current project for code with a particular purpose, and run that code.
