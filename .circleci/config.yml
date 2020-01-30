@@ -16,6 +16,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package-lock.json" }}
       - run: npm run ci-scripts
+      - store_artifacts:
+          path: tsc.log
   'node-latest':
     docker:
       - image: circleci/node:latest
@@ -30,6 +32,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package-lock.json" }}
       - run: npm run ci-scripts
+      - store_artifacts:
+          path: tsc.log
 
 workflows:
   version: 2
