@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/zetlen/pertain/compare/v0.1.1...v0.1.2) (2020-01-30)
+
+
+### Bug Fixes
+
+* **ci:** remove build parallelism ([6d297ce](https://github.com/zetlen/pertain/commit/6d297ce2def277a51c3f991f0b1cf7798192227f))
+
 ### 0.1.1 (2020-01-30)
 
 
