@@ -1,6 +1,6 @@
 import ExplicitDependency from './ExplicitDependency';
-import { Resolver } from './resolver';
-import TopologicalSort from './TopologicalSort';
+import { Resolver } from './resolverFactory';
+import TopologicalSorter from './TopologicalSorter';
 
 /**
  * A set of modules that can be queried for pertaining to a given subject.
@@ -42,7 +42,9 @@ export default class ExplicitDependencySet {
           dependent =>
             dependent !== dependency && dependent.dependsOn(dependency.name)
         );
-      const sorter = new TopologicalSort<ExplicitDependency>(getOutgoingEdges);
+      const sorter = new TopologicalSorter<ExplicitDependency>(
+        getOutgoingEdges
+      );
       sorted = sorter.sort(pertaining);
       this.sortedBySubject.set(subject, sorted);
     }

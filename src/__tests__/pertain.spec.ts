@@ -1,6 +1,6 @@
 import path from 'path';
 import pertain from '../';
-import TopologicalSort from '../TopologicalSort';
+import TopologicalSorter from '../TopologicalSorter';
 
 const projectPath = path.join(__dirname, '__fixtures__/cool-cactus');
 
@@ -14,7 +14,7 @@ test('pertains to "germane.identify" in dep order to list ingredients in a cool 
 
 test('runs the same sequence without invoking sort twice', () => {
   pertain.clearCache();
-  const sort = jest.spyOn(TopologicalSort.prototype, 'sort');
+  const sort = jest.spyOn(TopologicalSorter.prototype, 'sort');
   pertain(projectPath, 'germane.identify');
   pertain(projectPath, 'germane.identify');
   expect(sort).toHaveBeenCalledTimes(1);

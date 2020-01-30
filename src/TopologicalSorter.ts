@@ -11,7 +11,7 @@ import PertainError from './PertainError';
  *
  * That code appears here courtesy of the MIT license.
  */
-export default class TopologicalSort<T> {
+export default class TopologicalSorter<T> {
   private outgoingFrom: (node: T) => T[];
   constructor(outgoingFrom: (node: T) => T[]) {
     this.outgoingFrom = outgoingFrom;

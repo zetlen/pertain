@@ -1,7 +1,7 @@
 import makeDebug from 'debug';
 import ExplicitDependencySet from './ExplicitDependencySet';
 import PackageJson from './PackageJson';
-import resolver from './resolver';
+import resolver from './resolverFactory';
 
 const debug = makeDebug('pertain:main');
 
