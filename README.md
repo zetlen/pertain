@@ -1,4 +1,4 @@
-# pertain 📋 ![node](https://img.shields.io/node/v/pertain?logo=javascript&style=for-the-badge)
+# pertain 📋 <img alt="NodeJS" src="https://img.shields.io/node/v/pertain?logo=javascript&style=for-the-badge" align="right" valign="bottom">
 
 [![npm version](https://img.shields.io/npm/v/pertain)](https://npmjs.com/package/pertain)
 [![codecov](https://codecov.io/gh/zetlen/pertain/branch/master/graph/badge.svg)](https://codecov.io/gh/zetlen/pertain)
@@ -20,8 +20,8 @@ You want to detect which of a project's dependencies can do a particular task. _
 {
   "name": "@my-house/potluck",
   "version": "1.0.0",
-  "description" "Come over Saturday!",
-  "dependencies" {
+  "description": "Come over Saturday!",
+  "dependencies": {
     "aunt-cathy": "^1.2.3",
     "@work/cornelius": "^4.3.1",
     "grandma": "^23.0.1",
