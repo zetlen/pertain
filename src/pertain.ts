@@ -58,6 +58,7 @@ function pertain(rootDir: string, subject: string): Pertaining[] {
       ...dependencies,
       ...devDependencies
     });
+    allDependencyNames.push('./'); // rootDir too
     debug('%s allDependencyNames %s', rootDir, allDependencyNames);
     depSet = new ExplicitDependencySet(resolve, allDependencyNames);
     dependencySetCache.set(rootDir, depSet);
