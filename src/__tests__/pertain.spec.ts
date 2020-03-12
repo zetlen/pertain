@@ -36,3 +36,13 @@ test('throws informative error if a dep declares an invalid pertainer', () => {
 test('throws informative error if circular deps are detected', () => {
   expect(() => pertain(projectPath, 'humpty')).toThrow('Cyclic');
 });
+
+test('accepts custom DependencyFinder', () => {
+  pertain.clearCache();
+  const allTalk = pertain(projectPath, 'germane.identify', () => [
+    'cactus-attitude'
+  ])
+    .map(dep => require(dep.path)())
+    .join('');
+  expect(allTalk).toBe('a bad attitude');
+});

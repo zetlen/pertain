@@ -5,6 +5,26 @@ import resolver from './resolverFactory';
 
 const debug = makeDebug('pertain:main');
 
+export type DependencyFinder = (
+  found: string[],
+  packageJson: PackageJson,
+  rootDir: string,
+  subject: string
+) => string[];
+
+const depsAndDevDeps = (pkg: PackageJson): string[] => {
+  // Merging the two dependency sets that we look at will dedupe them.
+  // We don't care whether it comes from devDependencies or dependencies.
+  // Both are relevant, because many applications with a build step compile
+  // code from devDependencies.
+  const allDependencyNames = Object.keys({
+    ...pkg.dependencies,
+    ...pkg.devDependencies
+  });
+  allDependencyNames.push('./'); // rootDir too
+  return allDependencyNames;
+};
+
 /**
  * A Node package which declares in its `package.json` file that it contains
  * a script module which pertains to a particular subject. Use this object
@@ -41,24 +61,24 @@ const dependencySetCache = new Map<string, ExplicitDependencySet>();
  * packages which have a particular `package.json` property. Return them in
  * peerDependency order.
  */
-function pertain(rootDir: string, subject: string): Pertaining[] {
+function pertain(
+  rootDir: string,
+  subject: string,
+  getDependencies: DependencyFinder = found => found
+): Pertaining[] {
   let depSet = dependencySetCache.get(rootDir);
   if (!depSet) {
     debug('no cached depset for %s', rootDir);
     // A convenience function which can be replaced with an alternate resolver
     // algorithm.
     const resolve = resolver(rootDir);
-    const { dependencies, devDependencies } = new PackageJson(rootDir);
-
-    // Merging the two dependency sets that we look at will dedupe them.
-    // We don't care whether it comes from devDependencies or dependencies.
-    // Both are relevant, because many applications with a build step compile
-    // code from devDependencies.
-    const allDependencyNames = Object.keys({
-      ...dependencies,
-      ...devDependencies
-    });
-    allDependencyNames.push('./'); // rootDir too
+    const packageJson = new PackageJson(rootDir);
+    const allDependencyNames = getDependencies(
+      depsAndDevDeps(packageJson),
+      packageJson,
+      rootDir,
+      subject
+    );
     debug('%s allDependencyNames %s', rootDir, allDependencyNames);
     depSet = new ExplicitDependencySet(resolve, allDependencyNames);
     dependencySetCache.set(rootDir, depSet);

@@ -271,9 +271,36 @@ for (const dessertFile of desserts) {
 }
 ```
 
+Supply a custom `getDependencies(found, packageJson, rootDir, subject)` function to customize how pertain finds the list of dependency names.
+Its first argument is a union of `dependencies` and `devDependencies`, and by default it simply returns that argument.
+This is useful for when you are developing a pertinent package and linking it via `npm link` to the consuming package.
+
+```js
+const pertain = require('pertain');
+
+const desserts = pertain(
+  process.cwd(),
+  'potluck.desserts',
+  deps => deps.concat(['neighbor-window-pie'])
+);
+
+const dessertTable = {};
+
+for (const dessertFile of desserts) {
+  // Require and execute the module.
+  const Dessert = require(dessertFile.path);
+  // Expect that a dessert will be a class. Provide it with the table
+  // everything else has set, so it can interact with other dependencies.
+  const dessert = new Dessert(dessertTable);
+
+  // Expect Dessert#serve() to run a side effect.
+  dessert.serve();
+}
+```
+
 ### API
 
-#### `pertain(workingDirectory, subject)`
+#### `pertain(workingDirectory, subject, getDependencies?)`
 
 Return an array of module info, sorted in peer dependency order, for all modules declared as _direct dependencies_ of the package root of `workingDirectory`. Filter those modules for only those which:
 - declare a property named `subject` in their `package.json` file
