@@ -1,5 +1,5 @@
 import path from 'path';
-import resolverFactory from '../resolverFactory';
+import { resolver as resolverFactory } from '../';
 
 describe('locally', () => {
   const base = path.resolve(__dirname, '../../');
