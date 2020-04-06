@@ -30,6 +30,7 @@
     "test": "run-s build test:*",
     "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
     "test:unit": "jest",
+    "test:universal": "node testCjs.js",
     "watch": "run-s \"test:unit -- --watch\"",
     "cov:html": "npm run test && open-cli coverage/lcov-report/index.html",
     "version": "standard-version -a",

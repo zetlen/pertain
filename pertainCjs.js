@@ -1,1 +1,2 @@
-module.exports = require('./build/main').default;
+const moduleExports = require('./build/main');
+module.exports = Object.assign(moduleExports.default, moduleExports)
