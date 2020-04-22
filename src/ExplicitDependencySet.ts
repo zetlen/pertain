@@ -19,7 +19,7 @@ export default class ExplicitDependencySet {
     this.resolve = resolve;
     this.dependencies = [];
     this.sortedBySubject = new Map();
-    names.forEach(name => this.add(name));
+    names.forEach((name) => this.add(name));
   }
 
   /**
@@ -32,14 +32,14 @@ export default class ExplicitDependencySet {
     let sorted = this.sortedBySubject.get(subject);
     if (!sorted) {
       const pertaining: ExplicitDependency[] = this.dependencies.filter(
-        dependency => dependency.pertains(subject)
+        (dependency) => dependency.pertains(subject)
       );
       // Returns a list of dependents (not dependencies) of the supplied
       // dependency. This is the data structure needed for an efficient
       // topological sort.
       const getOutgoingEdges = (dependency: ExplicitDependency) =>
         pertaining.filter(
-          dependent =>
+          (dependent) =>
             dependent !== dependency && dependent.dependsOn(dependency.name)
         );
       const sorter = new TopologicalSorter<ExplicitDependency>(

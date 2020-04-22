@@ -19,7 +19,7 @@ const depsAndDevDeps = (pkg: PackageJson): string[] => {
   // code from devDependencies.
   const allDependencyNames = Object.keys({
     ...pkg.dependencies,
-    ...pkg.devDependencies
+    ...pkg.devDependencies,
   });
   allDependencyNames.push('./'); // rootDir too
   return allDependencyNames;
@@ -69,7 +69,7 @@ const dependencySetCache = new Map<string, ExplicitDependencySet>();
 function pertain(
   rootDir: string,
   subject: string,
-  getDependencies: DependencyFinder = found => found
+  getDependencies: DependencyFinder = (found) => found
 ): Pertaining[] {
   let depSet = dependencySetCache.get(rootDir);
   if (!depSet) {
@@ -88,11 +88,11 @@ function pertain(
     depSet = new ExplicitDependencySet(resolve, allDependencyNames);
     dependencySetCache.set(rootDir, depSet);
   }
-  return depSet.pertaining(subject).map(dep => ({
+  return depSet.pertaining(subject).map((dep) => ({
     name: dep.name,
     modulePath: dep.modulePath,
     path: dep.pertains(subject) as string,
-    subject
+    subject,
   }));
 }
 

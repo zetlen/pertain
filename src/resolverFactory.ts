@@ -10,7 +10,7 @@ export type Resolver = (modulePath: string) => string | undefined;
  * passed to the resolver factory.
  */
 export default function resolver(cwd: string): Resolver {
-  return modulePath => {
+  return (modulePath) => {
     if (path.isAbsolute(modulePath) || modulePath.startsWith('.')) {
       return pkgDir.sync(path.resolve(cwd, modulePath));
     }

@@ -8,11 +8,11 @@ test('provides info about pertaining dependencies, in dependency order', () => {
   expect(
     pertain(projectPath, 'germane.draw')
       // hide absolute paths so snapshot is portable
-      .map(dep => ({
+      .map((dep) => ({
         path: path.relative(projectPath, dep.path),
         modulePath: path.relative(projectPath, dep.modulePath),
         name: dep.name,
-        subject: dep.subject
+        subject: dep.subject,
       }))
   ).toMatchSnapshot();
 });
@@ -20,7 +20,7 @@ test('provides info about pertaining dependencies, in dependency order', () => {
 test('pertains to "germane.identify" in dep order to list ingredients in a cool cactus', () => {
   const identifiers = pertain(projectPath, 'germane.identify');
   const ingredients = identifiers
-    .map(i => `- ${i.name} adds ${require(i.path)()}`)
+    .map((i) => `- ${i.name} adds ${require(i.path)()}`)
     .join('\n');
   expect(ingredients).toMatchSnapshot();
 });
@@ -53,9 +53,9 @@ test('throws informative error if circular deps are detected', () => {
 test('accepts custom DependencyFinder', () => {
   pertain.clearCache();
   const allTalk = pertain(projectPath, 'germane.identify', () => [
-    'cactus-attitude'
+    'cactus-attitude',
   ])
-    .map(dep => require(dep.path)())
+    .map((dep) => require(dep.path)())
     .join('');
   expect(allTalk).toBe('a bad attitude');
 });
