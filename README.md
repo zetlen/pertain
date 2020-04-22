@@ -157,16 +157,19 @@ This is what `pertain` returns:
   {
     "name": "@work/cornelius",
     "path": "/home/potluck/node_modules/@work/cornelius/potluck-dishes.js",
+    "modulePath": "/home/potluck/node_modules/@work/cornelius",
     "subject": "potluck"
   },
   {
     "name": "grandma",
     "path": "/home/potluck/node_modules/grandma/recipes/index.js",
+    "modulePath": "/home/potluck/node_modules/grandma",
     "subject": "potluck"
   },
   {
     "name": "philippe",
     "path": "/home/potluck/node_modules/philippe/scrapbook/food-ideas.js",
+    "modulePath": "/home/potluck/node_modules/philippe",
     "subject": "potluck"
   }
 ]
@@ -308,7 +311,8 @@ Return an array of module info, sorted in peer dependency order, for all modules
 
 Returned module info is an array of objects with the following properties:
 - `name`: The name of the dependency package, e.g. `left-pad`.
-- `path`: The real filesystem path of the module mentioned in the `subject` field
+- `path`: The real filesystem path of the module file mentioned in the `subject` field
+- `modulePath`: The real filesystem path of the found module _base directory_
 - `subject`: The originally argued subject string
 
 *The `subject` can be a dot-lookup path, e.g. `"foo.bar"`, which will then look for `"foo": { "bar": "./path" }` in the package.*

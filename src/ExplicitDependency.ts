@@ -18,7 +18,7 @@ export default class ExplicitDependency {
   /**
    * Real path on disk of this module.
    */
-  private modulePath: string;
+  public modulePath: string;
 
   /**
    * Name of this package; for use in dependency detection.

@@ -4,6 +4,19 @@ import TopologicalSorter from '../TopologicalSorter';
 
 const projectPath = path.join(__dirname, '__fixtures__/cool-cactus');
 
+test('provides info about pertaining dependencies, in dependency order', () => {
+  expect(
+    pertain(projectPath, 'germane.draw')
+      // hide absolute paths so snapshot is portable
+      .map(dep => ({
+        path: path.relative(projectPath, dep.path),
+        modulePath: path.relative(projectPath, dep.modulePath),
+        name: dep.name,
+        subject: dep.subject
+      }))
+  ).toMatchSnapshot();
+});
+
 test('pertains to "germane.identify" in dep order to list ingredients in a cool cactus', () => {
   const identifiers = pertain(projectPath, 'germane.identify');
   const ingredients = identifiers

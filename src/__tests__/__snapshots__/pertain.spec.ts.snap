@@ -49,3 +49,32 @@ exports[`pertains to "germane.identify" in dep order to list ingredients in a co
 - cactus-hat adds a hat
 - cactus-glasses adds a pair of sunglasses"
 `;
+
+exports[`provides info about pertaining dependencies, in dependency order 1`] = `
+Array [
+  Object {
+    "modulePath": "node_modules/@garden/cactus",
+    "name": "@garden/cactus",
+    "path": "node_modules/@garden/cactus/draw.js",
+    "subject": "germane.draw",
+  },
+  Object {
+    "modulePath": "node_modules/cactus-hat",
+    "name": "cactus-hat",
+    "path": "node_modules/cactus-hat/hatify.js",
+    "subject": "germane.draw",
+  },
+  Object {
+    "modulePath": "node_modules/cactus-glasses",
+    "name": "cactus-glasses",
+    "path": "node_modules/cactus-glasses/insert-glasses.js",
+    "subject": "germane.draw",
+  },
+  Object {
+    "modulePath": "node_modules/treachery",
+    "name": "treachery",
+    "path": "node_modules/treachery/index.js",
+    "subject": "germane.draw",
+  },
+]
+`;

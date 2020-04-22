@@ -37,6 +37,11 @@ export interface Pertaining {
    */
   name: string;
   /**
+   * The real path of the package root.
+   * @example "/Users/you/project/node_modules/@org/package-name"
+   */
+  modulePath: string;
+  /**
    * The filesystem path of the package's root directory.
    * @example "/var/www/venia/node_modules/@org/package-name"
    */
@@ -85,6 +90,7 @@ function pertain(
   }
   return depSet.pertaining(subject).map(dep => ({
     name: dep.name,
+    modulePath: dep.modulePath,
     path: dep.pertains(subject) as string,
     subject
   }));
