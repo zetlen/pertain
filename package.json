@@ -46,11 +46,6 @@
     "url": "https://github.com/zetlen/pertain/issues"
   },
   "homepage": "https://github.com/zetlen/pertain",
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "engines": {
     "node": ">=10"
   },
