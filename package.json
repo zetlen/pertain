@@ -36,6 +36,7 @@
     "version": "standard-version -a",
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "rimraf build test",
+    "prepare": "husky install",
     "prepare-release": "run-s reset test version"
   },
   "author": "James Zetlen <zetlen@gmail.com",
@@ -53,29 +54,29 @@
     "node": ">=10"
   },
   "dependencies": {
-    "debug": "~4.1.1",
     "dot-prop": "^5.2.0",
     "pkg-dir": "^4.2.0",
+    "debug": "^4.3.4",
     "resolve-pkg": "^2.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
-    "@types/debug": "^4.1.5",
-    "@types/jest": "^25.2.1",
-    "@types/node": "^13.13.2",
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@types/debug": "^4.1.7",
+    "@types/jest": "^29.5.1",
+    "@types/node": "^20.2.3",
     "codecov": "^3.5.0",
-    "husky": "^4.2.5",
-    "jest": "^25.4.0",
+    "husky": "^8.0.3",
+    "jest": "^29.5.0",
     "npm-run-all": "^4.1.5",
-    "open-cli": "^6.0.1",
-    "prettier": "^2.0.5",
-    "rimraf": "^3.0.2",
-    "standard-version": "^8.0.1",
-    "ts-jest": "^25.4.0",
     "tslint": "^6.1.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.8.3"
+    "open-cli": "^7.2.0",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.1",
+    "standard-version": "^9.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4"
   },
   "prettier": {
     "singleQuote": true
