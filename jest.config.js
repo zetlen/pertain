@@ -4,7 +4,7 @@ module.exports = {
   verbose: true,
   bail: true,
   collectCoverage: true,
-  collectCoverageFrom: ['./src/*.ts'],
+  collectCoverageFrom: ['./src/*.ts', '!./src/**/index.ts'],
   coverageThreshold: {
     global: {
       branches: 100,
