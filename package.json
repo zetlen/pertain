@@ -21,7 +21,7 @@
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "ci:all": "run-s clean ci:typescript test:lint ci:unit ci:sendcov",
-    "ci:typescript": "run-s \"build:* -- --noEmit --extendedDiagnostics --traceResolution\"",
+    "ci:typescript": "run-s \"build:* -- --noEmit --extendedDiagnostics\"",
     "ci:sendcov": "codecov",
     "ci:unit": "jest --runInBand --no-bail",
     "fix": "run-s fix:*",

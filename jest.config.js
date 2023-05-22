@@ -14,7 +14,6 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json', 'jsx', 'node'],
   moduleDirectories: ['node_modules', 'src/__tests__/__fixtures__'],
-  testEnvironment: 'node',
   testMatch: ['**/__tests__/*.ts'],
   testPathIgnorePatterns: ['.d.ts']
 };

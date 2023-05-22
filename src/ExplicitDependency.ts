@@ -47,7 +47,7 @@ export default class ExplicitDependency {
    * extensions. Otherwise they're not guaranteed to run in the right order.
    */
   public dependsOn(name: string) {
-    return this.pkg.peerDependencies.hasOwnProperty(name);
+    return Reflect.has(this.pkg.peerDependencies,name);
   }
 
   /**
