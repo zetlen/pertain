@@ -1,5 +1,5 @@
 import PertainError from './PertainError';
-/* tslint:disable */
+/* eslint-disable */
 
 /**
  * Topologically sort a list of items of any type, given a list of items and

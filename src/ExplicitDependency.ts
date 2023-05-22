@@ -62,7 +62,7 @@ export default class ExplicitDependency {
    * `package.json`must have a top level `pwa` object with a `build` property.
    */
   public pertains(subject: string) {
-    const pertaining = PackageJson.lookup(this.pkg, subject);
+    const pertaining = this.pkg.lookup(subject);
 
     // Only strings can be file paths, so anything else does not pertain
     if (!pertaining || typeof pertaining !== 'string') {

@@ -55,17 +55,19 @@
     "node": ">=10"
   },
   "dependencies": {
-    "dot-prop": "^5.2.0",
-    "pkg-dir": "^4.2.0",
     "debug": "^4.3.4",
+    "find-root": "^1.1.0",
+    "object-path": "^0.11.8",
     "resolve-pkg": "^2.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
     "@types/debug": "^4.1.7",
+    "@types/find-root": "^1.1.2",
     "@types/jest": "^29.5.1",
     "@types/node": "^20.2.3",
+    "@types/object-path": "^0.11.1",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
     "codecov": "^3.5.0",

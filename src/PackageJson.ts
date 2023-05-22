@@ -1,9 +1,13 @@
-import dotProp from 'dot-prop';
+import objectPath from 'object-path';
+import { readFileSync } from 'fs';
 import path from 'path';
 
-export interface JsonMap<T> {
-  [key: string]: T;
-}
+type PkgData = {
+  name: string;
+  dependencies: Record<string, string>;
+  devDependencies: Record<string, string>;
+  peerDependencies: Record<string, string>;
+};
 
 /**
  * Lazy-loading proxy for package.json. A subset of properties are available,
@@ -15,36 +19,33 @@ export interface JsonMap<T> {
  * package files from disk.
  */
 export default class PackageJson {
-  /**
-   * Look up a custom dot-path on a package.json instance. Abstracting this
-   * simple operation behind a static method helps us to keep this loading lazy.
-   */
-  public static lookup(pkg: PackageJson, dotPath: string) {
-    return dotProp.get(pkg.getJson(), dotPath);
+  json!: objectPath.ObjectPathBound<PkgData>;
+  public lookup<T>(dotPath: string, fallback?: T): T {
+    return this.getJson().get(dotPath) || fallback;
   }
-  public get dependencies(): JsonMap<string> {
-    return this.getJson().dependencies || {};
+  public get dependencies(): Record<string, string> {
+    return this.lookup('dependencies', {});
   }
-  public get devDependencies(): JsonMap<string> {
-    return this.getJson().devDependencies || {};
+  public get devDependencies(): Record<string, string> {
+    return this.lookup('devDependencies', {});
   }
   public get name(): string {
-    return this.getJson().name as string;
+    return this.lookup('name');
   }
-  public get peerDependencies(): JsonMap<string> {
-    return this.getJson().peerDependencies || {};
+  public get peerDependencies(): Record<string, string> {
+    return this.lookup('peerDependencies', {});
   }
-  private json: JsonMap<any> | undefined;
   private modulePath: string;
   constructor(modulePath: string) {
     this.modulePath = modulePath;
   }
-  private getJson(): JsonMap<any> {
+  private getJson() {
     if (!this.json) {
-      this.json = require(path.join(
-        this.modulePath,
-        'package.json'
-      )) as JsonMap<any>;
+      this.json = objectPath(
+        JSON.parse(
+          readFileSync(path.join(this.modulePath, 'package.json'), 'utf8')
+        )
+      );
     }
     return this.json;
   }
